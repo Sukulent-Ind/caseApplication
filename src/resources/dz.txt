@@ -1,0 +1,117 @@
+# n, a = [int(x) for x in input().split()]
+# times = [int(x) for x in input().split()]
+# res = []
+#
+# res.append(times[0] + a)
+# for i in range(1, n):
+#     if res[i - 1] > times[i]:
+#         res.append(res[i - 1] + a)
+#     else:
+#         res.append(times[i] + a)
+#
+# [print(f"{x}") for x in res]
+
+
+
+
+# s = input()
+# letters = ""
+# res = {}
+#
+# for i in range(len(s)):
+#     for j in range(i + 1):
+#         letters += s[j:len(s) - i + j]
+#
+# for ch in letters:
+#     res[ch] = res.setdefault(ch, 0) + 1
+#
+# res = dict(sorted(res.items()))
+#
+# [print(f"{k}: {v}") for k, v in res.items()]
+
+
+
+# class Test:
+#
+#     def __init__(self, x, y, z, r):
+#         self.n = int(x)
+#         self.h = [int(l) for l in y.split()]
+#         self.a = [int(l) for l in z.split()]
+#         self.t = [int(l) for l in r.split()]
+#
+#
+#     def getn(self):
+#         return self.n
+#
+#     def geth(self):
+#         return self.h
+#
+#     def geta(self):
+#         return self.a
+#
+#     def gett(self):
+#         return self.t
+#
+# T = int(input())
+# data = [Test(input(), input(), input(), input()) for _ in range(T)]
+#
+#
+# for test in data:
+#     n = test.getn()
+#     h = test.geth()
+#     a = test.geta()
+#     t = test.gett()
+#
+#     day = 0
+#     while True:
+#
+#         prob = []
+#         for i in range(n):
+#             count = 0
+#
+#             for x in range(n):
+#                 if h[x] > h[i] and i != x:
+#                     count += 1
+#
+#             if count == t[i]:
+#                 prob.append(True)
+#             else:
+#                 prob.append(False)
+#
+#         if all(prob):
+#             print(day)
+#             break
+#
+#         if len(set(a)) == 1:
+#             print(-1)
+#             break
+#
+#         day += 1
+#         h = [h[i] + a[i] for i in range(n)]
+#
+#
+
+
+# def dist(x, y, a, b):
+#     if y >= x:
+#         return (y - x) * a
+#     return (x - y) * b
+#
+# n = int(input())
+# numbers = [int(x) for x in input().split()]
+# q = int(input())
+# pairs = [tuple([int(j) for j in input().split()]) for _ in range(q)]
+#
+# res = []
+#
+# for a, b in pairs:
+#     summs = []
+#     for y in range(-10000, 10000):
+#         summ = 0
+#         for x in numbers:
+#             summ += dist(x, y, a, b)
+#         summs.append(summ)
+#
+#     res.append(min(summs))
+#
+# [print(x) for x in res]

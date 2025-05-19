@@ -30,12 +30,21 @@ class MainWindow(QtWidgets.QMainWindow):
         self.new_department_window = NewDepWindow()
         self.turniket_window = TurniketWindow()
 
+        self.turniket_window.show()
+        self.turniket_window.get_ids()
+
+    def closeEvent(self, a0):
+        self.worker_info_window.close()
+        self.new_worker_window.close()
+        self.new_department_window.close()
+        self.turniket_window.close()
+
     def find_worker(self):
         if(self.ui.FIO_find.text() in ["", "Введите ФИО!"]):
             self.ui.FIO_find.setText("Введите ФИО!")
             return
 
-        response = requests.get(apiurl + "worker/{fio}?name=" + self.ui.FIO_find.text())
+        response = requests.get(apiurl + "worker/find/{fio}?name=" + self.ui.FIO_find.text())
 
         if response.status_code == 200 and response.json() != []:
             self.worker_info_window.set_data(response)
@@ -56,7 +65,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.new_worker_window.show()
 
     def new_department(self):
-        pass
+        self.new_department_window.show()
 
     def check_worker_count(self):
         pass
@@ -233,6 +242,33 @@ class NewDepWindow(QtWidgets.QMainWindow):
         self.ui = Ui_NewDepartment()
         self.ui.setupUi(self)
 
+        self.ui.add_department.clicked.connect(self.add_dptmnt)
+        self.ui.cancel_add_department.clicked.connect(self.cancel_clk)
+
+        self.val_er_window = ValidErrWindow()
+
+    def add_dptmnt(self):
+        data = {}
+
+        data["name"] = self.ui.new_department_name.text()
+        data["adress"] = self.ui.new_department_adress.text()
+
+        if data["name"] == "" or data["adress"] == "":
+            self.val_er_window.show()
+            return
+
+        response = requests.post(apiurl + "departments", json=data)
+
+        if response.status_code == 200:
+            self.hide()
+
+        else:
+            self.val_er_window.show()
+            return
+
+    def cancel_clk(self):
+        self.hide()
+
 
 class TurniketWindow(QtWidgets.QMainWindow):
 
@@ -240,6 +276,33 @@ class TurniketWindow(QtWidgets.QMainWindow):
         super(TurniketWindow, self).__init__()
         self.ui = Ui_RFID()
         self.ui.setupUi(self)
+
+        self.ui.make_attendance.clicked.connect(self.add_attend)
+        self.ui.worker_id.setMaxVisibleItems(20)
+
+        self.val_er_window = ValidErrWindow()
+
+    def mousePressEvent(self, a0):
+        self.get_ids()
+
+    def add_attend(self):
+        response = requests.post(apiurl + f"attendance/{self.ui.worker_id.currentText()}")
+
+        if response.status_code != 200 or response.json() == []:
+            self.val_er_window.show()
+            return
+
+
+    def get_ids(self):
+        response = requests.get(apiurl + "worker/ids")
+        self.ui.worker_id.clear()
+
+        if response.status_code == 200 and response.json() != []:
+            for i in response.json():
+                self.ui.worker_id.addItem(str(i))
+            return
+        self.ui.worker_id.addItem("0")
+        return
 
 
 class ValidErrWindow(QtWidgets.QMainWindow):

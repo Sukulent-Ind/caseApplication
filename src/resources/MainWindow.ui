@@ -79,7 +79,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>30</y>
+       <y>10</y>
        <width>121</width>
        <height>31</height>
       </rect>
@@ -92,13 +92,27 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>70</y>
+       <y>50</y>
        <width>121</width>
        <height>31</height>
       </rect>
      </property>
      <property name="text">
       <string>Добавить отдел</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="new_department_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>90</y>
+       <width>121</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Показать имена
+работников</string>
      </property>
     </widget>
    </widget>

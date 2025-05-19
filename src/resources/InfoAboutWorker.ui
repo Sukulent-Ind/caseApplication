@@ -20,7 +20,7 @@
       <x>10</x>
       <y>10</y>
       <width>281</width>
-      <height>261</height>
+      <height>271</height>
      </rect>
     </property>
     <property name="title">
@@ -280,7 +280,7 @@
     <property name="geometry">
      <rect>
       <x>340</x>
-      <y>160</y>
+      <y>140</y>
       <width>131</width>
       <height>41</height>
      </rect>
@@ -294,13 +294,26 @@
     <property name="geometry">
      <rect>
       <x>340</x>
-      <y>220</y>
+      <y>190</y>
       <width>131</width>
       <height>41</height>
      </rect>
     </property>
     <property name="text">
      <string>Сохранить изменения</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="delete_worker">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>240</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Удалить работника</string>
     </property>
    </widget>
   </widget>

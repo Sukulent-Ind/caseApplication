@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'MainWindow.ui'
+# Form implementation generated from reading ui file 'src\resources\MainWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -34,11 +34,14 @@ class Ui_MainWindow(object):
         self.groupBox_2.setTitle("")
         self.groupBox_2.setObjectName("groupBox_2")
         self.new_worker = QtWidgets.QPushButton(self.groupBox_2)
-        self.new_worker.setGeometry(QtCore.QRect(10, 30, 121, 31))
+        self.new_worker.setGeometry(QtCore.QRect(10, 10, 121, 31))
         self.new_worker.setObjectName("new_worker")
         self.new_department = QtWidgets.QPushButton(self.groupBox_2)
-        self.new_department.setGeometry(QtCore.QRect(10, 70, 121, 31))
+        self.new_department.setGeometry(QtCore.QRect(10, 50, 121, 31))
         self.new_department.setObjectName("new_department")
+        self.new_department_2 = QtWidgets.QPushButton(self.groupBox_2)
+        self.new_department_2.setGeometry(QtCore.QRect(10, 90, 121, 31))
+        self.new_department_2.setObjectName("new_department_2")
         self.groupBox_3 = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBox_3.setGeometry(QtCore.QRect(20, 180, 301, 201))
         self.groupBox_3.setObjectName("groupBox_3")
@@ -236,6 +239,8 @@ class Ui_MainWindow(object):
         self.find.setText(_translate("MainWindow", "Найти"))
         self.new_worker.setText(_translate("MainWindow", "Добавить работника"))
         self.new_department.setText(_translate("MainWindow", "Добавить отдел"))
+        self.new_department_2.setText(_translate("MainWindow", "Показать имена\n"
+"работников"))
         self.groupBox_3.setTitle(_translate("MainWindow", "Собрать данные посещаемости"))
         self.label_2.setText(_translate("MainWindow", "Введите ФИО работников, посещемость которых нужно\n"
 "узнать (каждый работник с новой строки)"))

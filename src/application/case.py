@@ -1,11 +1,13 @@
-from PyQt5 import QtWidgets, QtGui
+import json
+
+from PyQt5 import QtWidgets
 from src.resources.MainWindow import Ui_MainWindow
 from src.resources.AddNewWorker import Ui_NewWorkerForm
 from src.resources.InfoAboutWorker import Ui_WorkerInformation
 from src.resources.AddNewDepartment import Ui_NewDepartment
 from src.resources.Turniket import Ui_RFID
 from src.resources.ValidErr import Ui_Dialog
-import sys
+from src.resources.ShowDataWindow import Ui_ShowData
 import requests
 
 
@@ -24,20 +26,28 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.find_attendance.clicked.connect(self.show_attendance)
         self.ui.new_worker.clicked.connect(self.new_worker)
         self.ui.new_department.clicked.connect(self.new_department)
+        self.ui.new_department_2.clicked.connect(self.show_all_names)
 
         self.worker_info_window = InfoWorkerWindow()
         self.new_worker_window = NewWorkerWindow()
         self.new_department_window = NewDepWindow()
         self.turniket_window = TurniketWindow()
+        self.show_data_window = ShowDataWindow()
 
         self.turniket_window.show()
         self.turniket_window.get_ids()
+
+        self.check_worker_count()
+
+    def mousePressEvent(self, a0):
+        self.check_worker_count()
 
     def closeEvent(self, a0):
         self.worker_info_window.close()
         self.new_worker_window.close()
         self.new_department_window.close()
         self.turniket_window.close()
+        self.show_data_window.close()
 
     def find_worker(self):
         if(self.ui.FIO_find.text() in ["", "Введите ФИО!"]):
@@ -55,10 +65,14 @@ class MainWindow(QtWidgets.QMainWindow):
         return
 
     def show_all_names(self):
-        pass
+        response = requests.get(apiurl + "worker/names")
+        self.show_data_window.set_data("Имена сотрудников", response)
+        self.show_data_window.show()
 
     def show_attendance(self):
-        pass
+        response = requests.get(apiurl + "attendance/names?names=" + ";".join(self.ui.FIOs_find.toPlainText().split("\n")))
+        self.show_data_window.set_data("Посещаемость", response)
+        self.show_data_window.show()
 
     def new_worker(self):
         self.new_worker_window.set_data()
@@ -68,7 +82,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.new_department_window.show()
 
     def check_worker_count(self):
-        pass
+        response = requests.get(apiurl + "worker/ids")
+
+        if response.status_code == 200 and response.json() != []:
+            self.ui.lcd.display(len(response.json()))
 
 
 class NewWorkerWindow(QtWidgets.QMainWindow):
@@ -159,6 +176,7 @@ class InfoWorkerWindow(QtWidgets.QMainWindow):
 
         self.ui.ok.clicked.connect(self.ok_clk)
         self.ui.save_changes.clicked.connect(self.save_clk)
+        self.ui.delete_worker.clicked.connect(self.dele_clk)
 
         self.valid_err_window = ValidErrWindow()
 
@@ -169,7 +187,8 @@ class InfoWorkerWindow(QtWidgets.QMainWindow):
         self.hide()
 
     def dele_clk(self):
-        pass
+        response = requests.delete(apiurl + f"worker/{self.id}")
+        self.hide()
 
     def save_clk(self):
         new_data = {}
@@ -318,8 +337,19 @@ class ValidErrWindow(QtWidgets.QMainWindow):
         self.hide()
 
 
-app = QtWidgets.QApplication([])
-application = MainWindow()
-application.show()
+class ShowDataWindow(QtWidgets.QMainWindow):
+    def __init__(self):
+        super(ShowDataWindow, self).__init__()
+        self.ui = Ui_ShowData()
+        self.ui.setupUi(self)
 
-sys.exit(app.exec())
+        self.ui.pushButton.clicked.connect(self.ok_clk)
+
+    def set_data(self, label: str, data: requests.Response):
+        self.ui.label_data.setText(label)
+        self.ui.textEdit.setText(json.dumps(data.json(), indent=4))
+
+    def ok_clk(self):
+        self.hide()
+
+

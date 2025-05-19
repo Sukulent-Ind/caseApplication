@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'InfoAboutWorker.ui'
+# Form implementation generated from reading ui file 'src\resources\InfoAboutWorker.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -18,7 +18,7 @@ class Ui_WorkerInformation(object):
         self.centralwidget = QtWidgets.QWidget(WorkerInformation)
         self.centralwidget.setObjectName("centralwidget")
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox.setGeometry(QtCore.QRect(10, 10, 281, 261))
+        self.groupBox.setGeometry(QtCore.QRect(10, 10, 281, 271))
         self.groupBox.setObjectName("groupBox")
         self.label = QtWidgets.QLabel(self.groupBox)
         self.label.setGeometry(QtCore.QRect(10, 20, 61, 16))
@@ -84,11 +84,14 @@ class Ui_WorkerInformation(object):
         self.department_adress.setGeometry(QtCore.QRect(10, 90, 151, 16))
         self.department_adress.setObjectName("department_adress")
         self.ok = QtWidgets.QPushButton(self.centralwidget)
-        self.ok.setGeometry(QtCore.QRect(340, 160, 131, 41))
+        self.ok.setGeometry(QtCore.QRect(340, 140, 131, 41))
         self.ok.setObjectName("ok")
         self.save_changes = QtWidgets.QPushButton(self.centralwidget)
-        self.save_changes.setGeometry(QtCore.QRect(340, 220, 131, 41))
+        self.save_changes.setGeometry(QtCore.QRect(340, 190, 131, 41))
         self.save_changes.setObjectName("save_changes")
+        self.delete_worker = QtWidgets.QPushButton(self.centralwidget)
+        self.delete_worker.setGeometry(QtCore.QRect(340, 240, 131, 41))
+        self.delete_worker.setObjectName("delete_worker")
         WorkerInformation.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(WorkerInformation)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 511, 21))
@@ -118,6 +121,7 @@ class Ui_WorkerInformation(object):
         self.label_10.setText(_translate("WorkerInformation", "Адрес отдела:"))
         self.department_name.setText(_translate("WorkerInformation", "TextLabel"))
         self.department_adress.setText(_translate("WorkerInformation", "TextLabel"))
-        self.ok.setText(_translate("WorkerInformation", "Ок (изменеия не\n"
+        self.ok.setText(_translate("WorkerInformation", "ОК (изменеия не\n"
 "сохраняются)"))
         self.save_changes.setText(_translate("WorkerInformation", "Сохранить изменения"))
+        self.delete_worker.setText(_translate("WorkerInformation", "Удалить работника"))
